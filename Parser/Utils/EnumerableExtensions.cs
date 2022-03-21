@@ -18,5 +18,10 @@ namespace Parser
         {
             return !enumerable.Any(predicate);
         }
+
+        public static string Join<T>(this IEnumerable<T> enumerable, string separator)
+        {
+            return string.Join(separator, enumerable);
+        }
     }
 }

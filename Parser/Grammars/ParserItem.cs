@@ -9,7 +9,7 @@ namespace Parser.Grammars
         public GrammarRule Rule { get; }
         public int Position { get; }
 
-        public HashSet<TokenType> LookaheadTerminals = new HashSet<TokenType>();
+        public readonly HashSet<TokenType> LookaheadTerminals = new();
 
         public ParserItem(GrammarRule rule, int position = 0)
         {
@@ -28,6 +28,16 @@ namespace Parser.Grammars
         {
             return Position > Rule.Production.Count ? null : Rule.Production[Position];
         }
+        public TokenType? GetNextToken()
+        {
+            return Position + 1 > Rule.Production.Count ? null : Rule.Production[Position + 1];
+        }
+
+        public override string ToString()
+        {
+            var rule = Rule.ToString().Split(" ");
+            return $"{string.Join(' ', rule[..(Position + 2)])}•{string.Join(' ', rule[(Position + 2)..])}";
+        }
 
         protected bool Equals(ParserItem other)
         {
@@ -45,7 +55,7 @@ namespace Parser.Grammars
         }
         public override int GetHashCode()
         {
-            return HashCode.Combine(Rule, Position);
+            return HashCode.Combine(Rule, Position, LookaheadTerminals);
         }
     }
 }

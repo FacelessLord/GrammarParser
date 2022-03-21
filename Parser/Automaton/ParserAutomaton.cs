@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Parser.Grammars.tokens;
+using Parser.Nodes;
+using Parser.Utils;
 
 namespace Parser.Automaton
 {
@@ -13,6 +15,11 @@ namespace Parser.Automaton
             _table = table;
             _info = info;
             _automatonStack = automatonStack;
+        }
+
+        public INode Parse(BufferedEnumerable<Token> tokenStream)
+        {
+            return null;
         }
     }
 }

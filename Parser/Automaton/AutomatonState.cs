@@ -17,6 +17,11 @@ namespace Parser.Automaton
         public List<ParserItem> Items { get; }
         private readonly Lazy<int> _lazyHashCode;
 
+        public override string ToString()
+        {
+            return Items.Join("; ");
+        }
+
         private bool Equals(AutomatonState other)
         {
             return Items.Count == other.Items.Count &&
@@ -33,11 +38,14 @@ namespace Parser.Automaton
                 return false;
             return Equals((AutomatonState) obj);
         }
+
         public override int GetHashCode() => _lazyHashCode.Value;
 
         private static int BuildItemsHashCode(IEnumerable<ParserItem> items)
         {
-            return items.Where(i => i.Position == 0).Select(i => i.GetHashCode()).Aggregate(HashCode.Combine);
+            return items.Where(i => i.Position == 0)
+                .Select(i => i.GetHashCode())
+                .Aggregate(HashCode.Combine);
         }
     }
 }

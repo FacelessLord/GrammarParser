@@ -1,26 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Parser.Grammars.tokens;
 
 namespace Parser.Automaton
 {
     public class AutomatonTable
     {
-        public AutomatonTable(Dictionary<AutomatonState, Dictionary<TokenType, IAutomatonAction>> table)
+        public AutomatonTable(Dictionary<AutomatonState, Func<TokenType, TokenType, IAutomatonAction>> actionSelectorTable)
         {
-            _table = table;
+            _actionSelectorTable = actionSelectorTable;
         }
 
-        public IAutomatonAction this[AutomatonState state, TokenType tokenType]
-        {
-            get => _table[state][tokenType];
-            set
-            {
-                if (!_table.ContainsKey(state))
-                    _table[state] = new Dictionary<TokenType, IAutomatonAction>();
-                _table[state][tokenType] = value;
-            }
-        }
+        public IAutomatonAction this[AutomatonState state, TokenType tokenType, TokenType lookahead] => _actionSelectorTable[state](tokenType, lookahead);
 
-        private readonly Dictionary<AutomatonState, Dictionary<TokenType, IAutomatonAction>> _table;
+        private readonly Dictionary<AutomatonState, Func<TokenType, TokenType, IAutomatonAction>> _actionSelectorTable;
     }
 }

@@ -20,13 +20,18 @@ namespace Parser.Grammars
             return new ParserItem(rule);
         }
 
+        public override string ToString()
+        {
+            return $"{Source.Name} => {string.Join(' ', Production.Select(t => t.Name))}";
+        }
+
         protected bool Equals(GrammarRule other)
         {
             return Source.Equals(other.Source) &&
                    Production.Count == other.Production.Count &&
                    Production.Select((q, i) => q.Equals(other.Production[i])).All(x => x);
         }
-        
+
         public override bool Equals(object? obj)
         {
             if (ReferenceEquals(null, obj))
