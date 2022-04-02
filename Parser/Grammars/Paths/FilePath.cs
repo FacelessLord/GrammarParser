@@ -1,21 +1,17 @@
-﻿namespace Parser.Grammars.paths
+﻿namespace Parser.Grammars.Paths
 {
     public class FilePath : ISourcePath
     {
         private string Filename { get; }
-        private int Line { get; }
-        private int Character { get; }
 
-        public FilePath(string filename, int line, int character)
+        public FilePath(string filename)
         {
             Filename = filename;
-            Line = line;
-            Character = character;
         }
 
         public string ToUserFriendlyPath()
         {
-            return $"{Filename}, line {Line}:{Character}";
+            return $"{Filename}";
         }
     }
 }

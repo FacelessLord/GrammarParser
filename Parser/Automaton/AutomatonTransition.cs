@@ -8,7 +8,7 @@ namespace Parser.Automaton
     public class AutomatonTransition
     {
         public AutomatonTransition(AutomatonState start, AutomatonState end, TokenType token,
-            HashSet<TokenType> lookAheadTokens)
+            HashSet<TerminalType> lookAheadTokens)
         {
             Start = start;
             End = end;
@@ -19,7 +19,7 @@ namespace Parser.Automaton
         public AutomatonState Start { get; }
         public AutomatonState End { get; }
         public TokenType Token { get; }
-        public HashSet<TokenType> LookAheadTokens { get; }
+        public HashSet<TerminalType> LookAheadTokens { get; }
         
         public IAutomatonAction Action { get; }
 
@@ -32,8 +32,7 @@ namespace Parser.Automaton
         {
             return Start.Equals(other.Start) &&
                    End.Equals(other.End) &&
-                   Token.Equals(other.Token) &&
-                   LookAheadTokens.Equals(other.LookAheadTokens);
+                   Token.Equals(other.Token);
         }
         public override bool Equals(object? obj)
         {
@@ -47,7 +46,7 @@ namespace Parser.Automaton
         }
         public override int GetHashCode()
         {
-            return HashCode.Combine(Start, End, Token, LookAheadTokens);
+            return HashCode.Combine(Start, End, Token);
         }
     }
 }

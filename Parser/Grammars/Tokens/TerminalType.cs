@@ -6,8 +6,8 @@
         {
         }
 
-        public abstract Match TryMatch(string text);
+        public abstract Match GetMatch(string text);
     }
 
-    public record Match(bool HasMatch, string? MatchedText);
+    public record Match(bool HasMatch, int MatchedLength, string MatchedText);
 }

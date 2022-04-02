@@ -1,5 +1,5 @@
 ﻿
-namespace Parser.Grammars.paths
+namespace Parser.Grammars.Paths
 {
     public interface ISourcePath
     {

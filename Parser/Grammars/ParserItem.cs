@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Parser.Grammars.tokens;
 
 namespace Parser.Grammars
@@ -9,28 +10,34 @@ namespace Parser.Grammars
         public GrammarRule Rule { get; }
         public int Position { get; }
 
-        public readonly HashSet<TokenType> LookaheadTerminals = new();
+        public HashSet<TerminalType> LookaheadTerminals { get; private init; } = new(){TokenType.Eof};
 
         public ParserItem(GrammarRule rule, int position = 0)
         {
             Rule = rule;
             Position = position;
         }
+        public ParserItem(GrammarRule rule, HashSet<TerminalType> lookaheadTerminals, int position = 0)
+        {
+            Rule = rule;
+            Position = position;
+            LookaheadTerminals = lookaheadTerminals;
+        }
 
         public ParserItem Shift()
         {
             if (Position > Rule.Production.Count)
                 throw new IndexOutOfRangeException($"Can't shift in rule {Rule}");
-            return new ParserItem(Rule, Position + 1);
+            return new ParserItem(Rule, LookaheadTerminals, Position + 1);
         }
 
         public TokenType? GetCurrentToken()
         {
-            return Position > Rule.Production.Count ? null : Rule.Production[Position];
+            return Position >= Rule.Production.Count ? null : Rule.Production[Position];
         }
         public TokenType? GetNextToken()
         {
-            return Position + 1 > Rule.Production.Count ? null : Rule.Production[Position + 1];
+            return Position + 1 >= Rule.Production.Count ? null : Rule.Production[Position + 1];
         }
 
         public override string ToString()
@@ -55,7 +62,7 @@ namespace Parser.Grammars
         }
         public override int GetHashCode()
         {
-            return HashCode.Combine(Rule, Position, LookaheadTerminals);
+            return HashCode.Combine(Rule, Position);
         }
     }
 }

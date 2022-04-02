@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Parser.Grammars.tokens;
+using Parser.Nodes;
 
 namespace Parser.Grammars
 {
@@ -11,7 +13,8 @@ namespace Parser.Grammars
         public HashSet<NonTerminalType> NonTerminals { get; }
         public Dictionary<NonTerminalType, HashSet<GrammarRule>> Rules { get; }
 
-        public Dictionary<TokenType, HashSet<TokenType>> First { get; }
+        public Dictionary<TokenType, HashSet<TerminalType>> First { get; }
+        public Dictionary<TokenType, HashSet<TerminalType>> Follow { get; }
 
         public Grammar(NonTerminalType axiom, HashSet<TerminalType> terminals, HashSet<NonTerminalType> nonTerminals,
             Dictionary<NonTerminalType, HashSet<GrammarRule>> rules)
@@ -21,7 +24,18 @@ namespace Parser.Grammars
             Rules = rules;
             Axiom = axiom;
 
-            First = BuildFirst(nonTerminals);
+            First = BuildFirst(terminals, nonTerminals);
+            Follow = BuildFollow(terminals, nonTerminals);
+        }
+
+        public Grammar(Grammar source,
+            NonTerminalType? axiom = null,
+            HashSet<TerminalType>? terminals = null,
+            HashSet<NonTerminalType>? nonTerminals = null,
+            Dictionary<NonTerminalType,
+                HashSet<GrammarRule>>? rules = null) : this(axiom ?? source.Axiom, terminals ?? source.Terminals,
+            nonTerminals ?? source.NonTerminals, rules ?? source.Rules)
+        {
         }
 
         public Grammar(NonTerminalType axiom) : this(axiom, new HashSet<TerminalType>(), new HashSet<NonTerminalType>(),
@@ -29,30 +43,67 @@ namespace Parser.Grammars
         {
         }
 
-        private Dictionary<TokenType, HashSet<TokenType>> BuildFirst(HashSet<NonTerminalType> nonTerminals)
+        private Dictionary<TokenType, HashSet<TerminalType>> BuildFollow(HashSet<TerminalType> terminals,
+            HashSet<NonTerminalType> nonTerminals)
         {
-            var first = new Dictionary<TokenType, HashSet<TokenType>>();
-            BuildFirstForToken(Axiom, first);
+            var follow = new Dictionary<TokenType, HashSet<TerminalType>>();
+            foreach (var type in terminals.Cast<TokenType>().Concat(nonTerminals))
+            {
+                follow[type] = new HashSet<TerminalType>();
+            }
+            follow[Axiom] = new HashSet<TerminalType>() { TokenType.Eof };
+
+            for (var j = 0; j < 2; j++)
+                foreach (GrammarRule rule in nonTerminals.Select(nonTerminal => Rules[nonTerminal])
+                    .SelectMany(rules => rules))
+                {
+                    for (var i = 0; i < rule.Production.Count - 1; i++)
+                    {
+                        var currSymbol = rule.Production[i];
+                        var nextSymbol = rule.Production[i + 1];
+                        follow[currSymbol].UnionWith(First[nextSymbol]);
+                    }
+                    follow[rule.Production[^1]].UnionWith(follow[rule.Source]);
+                }
+
+            return follow;
+        }
+
+        private Dictionary<TokenType, HashSet<TerminalType>> BuildFirst(HashSet<TerminalType> terminals,
+            HashSet<NonTerminalType> nonTerminals)
+        {
+            var first = new Dictionary<TokenType, HashSet<TerminalType>>();
+            terminals.ForEach(t => first[t] = new HashSet<TerminalType>() { t });
+            var history = new HashSet<TokenType>();
+            BuildFirstForToken(Axiom, first, history);
+            for (var i = 0; i < 2; i++)
+            {
+                foreach (var nonTerminal in nonTerminals)
+                {
+                    BuildFirstForToken(nonTerminal, first, history);
+                }
+                history.Clear();
+            }
             return first;
         }
 
-        private void BuildFirstForToken(TokenType token, Dictionary<TokenType, HashSet<TokenType>> first)
+        private void BuildFirstForToken(NonTerminalType token, Dictionary<TokenType, HashSet<TerminalType>> first,
+            HashSet<TokenType> history)
         {
-            if (first.ContainsKey(token))
+            if (history.Contains(token))
                 return;
-            var tokenFirst = new HashSet<TokenType> { token };
+            var tokenFirst = new HashSet<TerminalType> { };
+            history.Add(token);
             first[token] = tokenFirst;
-            if (token is NonTerminalType nonTerm)
-            {
-                Rules[nonTerm]
-                    .Select(r =>
-                    {
-                         BuildFirstForToken(r.Production[0], first);
-                         return r.Production[0];
-                    })
-                    .ForEach(t => first[t]
-                        .ForEach(e => tokenFirst.Add(e)));
-            }
+            Rules[token]
+                .Select(r =>
+                {
+                    if (!first.ContainsKey(r.Production[0]))
+                        BuildFirstForToken((NonTerminalType) r.Production[0], first, history);
+                    return r.Production[0];
+                })
+                .Distinct()
+                .ForEach(t => first[t].ForEach(e => tokenFirst.Add(e)));
         }
 
         public void AddRule(GrammarRule rule)
@@ -64,9 +115,9 @@ namespace Parser.Grammars
             Rules[rule.Source].Add(rule);
         }
 
-        public void AddRule(NonTerminalType source, IReadOnlyList<TokenType> production)
+        public void AddRule(NonTerminalType source, IReadOnlyList<TokenType> production, Func<INode[], INode> collector)
         {
-            AddRule(new GrammarRule(source, production));
+            AddRule(new GrammarRule(source, production, collector));
         }
     }
 }

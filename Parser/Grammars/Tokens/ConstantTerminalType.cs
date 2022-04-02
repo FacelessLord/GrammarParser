@@ -5,17 +5,15 @@ namespace Parser.Grammars.tokens
 {
     public class ConstantTerminalType : TerminalType
     {
-        private readonly string[] _variants;
-
-        public ConstantTerminalType(string name, IEnumerable<string> variants) : base(name)
+        public ConstantTerminalType(string name) : base(name)
         {
-            _variants = variants.OrderBy(v => -v.Length).ToArray();
         }
 
-        public override Match TryMatch(string text)
+        public override Match GetMatch(string text)
         {
-            var foundText = _variants.Where(text.StartsWith).FirstOrDefault();
-            return new Match(foundText is not null, foundText);
+            var foundText = text.StartsWith(Name);
+            var value = foundText ? Name : "";
+            return new Match(foundText, value.Length, value);
         }
     }
 }

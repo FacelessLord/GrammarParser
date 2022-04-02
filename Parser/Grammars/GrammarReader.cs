@@ -65,7 +65,7 @@ namespace Parser.GrammarReader
 
             storageEntries.Where(e => e is TerminalLiteral)
                 .Cast<TerminalLiteral>()
-                .Select(l => new ConstantTerminalType(l.Name.ToLower(), new[] { l.Value }))
+                .Select(l => new VariableConstantTerminalType(l.Name.ToLower(), new[] { l.Value }))
                 .ForEach(t => terminals[t.Name.ToLower()] = t);
 
             var rules = ResolveRuleExpressions(storageEntries.Where(e => e is RuleExpression)

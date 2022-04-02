@@ -13,6 +13,16 @@ namespace Parser
                 action(item);
             }
         }
+        public static IEnumerable<T> Peek<T>(this IEnumerable<T> enumerable, Action<T> action)
+        {
+            var list = enumerable.ToList();
+            foreach (var item in list)
+            {
+                action(item);
+            }
+
+            return list;
+        }
 
         public static bool None<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
         {
