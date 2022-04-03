@@ -53,8 +53,11 @@ namespace Parser
         public Stack<NodeWrapper> Parse(Parser.Grammars.Paths.FileInfo info)
         {
             var tokenStream = new Stack<NodeWrapper>();
+            var superEofToken = new NodeWrapper(new TerminalNode(TokenType.SuperEof, ""),
+                new ContentSpan(new ContentPath(info.Source, 0)));
             var eofToken = new NodeWrapper(new TerminalNode(TokenType.Eof, ""),
                 new ContentSpan(new ContentPath(info.Source, 0)));
+            tokenStream.Push(superEofToken);
             tokenStream.Push(eofToken);
             ParseInternal(info).Reverse().ForEach(tokenStream.Push);
             return tokenStream;

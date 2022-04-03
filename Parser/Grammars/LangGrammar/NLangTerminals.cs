@@ -10,6 +10,7 @@ namespace Parser.Grammars.LangGrammar
         public static List<TerminalType> Terminals;
 
         private static TerminalType Constant(string name) => new ConstantTerminalType(name);
+        private static TerminalType Operation(string name, Operation operation) => new OperationTerminalType(name, operation);
 
         public static TerminalType String = new StringTerminal();
         public static TerminalType Float = new FloatTerminal();
@@ -26,22 +27,29 @@ namespace Parser.Grammars.LangGrammar
         public static TerminalType Comma = Constant(",");
         public static TerminalType Dot = Constant(".");
         public static TerminalType Arrow = Constant("=>");
-        public static TerminalType StrictEqual = Constant("===");
-        public static TerminalType Equal = Constant("==");
-        public static TerminalType Assign = Constant("=");
-        public static TerminalType NotEqual = Constant("!=");
-        public static TerminalType LessOrEqual = Constant("<=");
-        public static TerminalType GreaterOrEqual = Constant(">=");
-        public static TerminalType Less = Constant("<");
-        public static TerminalType Greater = Constant(">");
-        public static TerminalType Plus = Constant("+");
-        public static TerminalType Minus = Constant("-");
-        public static TerminalType Asterisk = Constant("*");
-        public static TerminalType Slash = Constant("/");
-        public static TerminalType Hat = Constant("^");
-        public static TerminalType Pipe = Constant("|");
-        public static TerminalType Ampersand = Constant("&");
-        public static TerminalType Tilda = Constant("~");
+        public static TerminalType StrictEqual = Operation("===", global::Operation.StrictEqual);
+        public static TerminalType Equal = Operation("==", global::Operation.Equal);
+        public static TerminalType Assign = Operation("=", global::Operation.Assign);
+        public static TerminalType NotStrictEqual = Operation("!==", global::Operation.NotStrictEqual);
+        public static TerminalType NotEqual = Operation("!=", global::Operation.NotEqual);
+        public static TerminalType LessOrEqual = Operation("<=", global::Operation.LessOrEqual);
+        public static TerminalType GreaterOrEqual = Operation(">=", global::Operation.GreaterOrEqual);
+        public static TerminalType Less = Operation("<", global::Operation.Less);
+        public static TerminalType Greater = Operation(">", global::Operation.Greater);
+        public static TerminalType Plus = Operation("+", global::Operation.Plus);
+        public static TerminalType Minus = Operation("-", global::Operation.Minus);
+        public static TerminalType Asterisk = Operation("*", global::Operation.Multiply);
+        public static TerminalType DoubleSlash = Operation("//", global::Operation.DivideInt);
+        public static TerminalType Slash = Operation("/", global::Operation.Divide);
+        public static TerminalType Hat = Operation("^", global::Operation.BitwiseXor);
+        public static TerminalType DoubleHat = Operation("^^", global::Operation.Xor);
+        public static TerminalType Pipe = Operation("|", global::Operation.BitwiseOr);
+        public static TerminalType DoublePipe = Operation("||", global::Operation.Or);
+        public static TerminalType Ampersand = Operation("&", global::Operation.BitwiseAnd);
+        public static TerminalType DoubleAmpersand = Operation("&&", global::Operation.And);
+        public static TerminalType Tilda = Operation("~", global::Operation.BitwiseNot);
+        public static TerminalType ExclamationMark = Operation("!", global::Operation.Not);
+        public static TerminalType PrimeOp = Operation("", global::Operation.PrimeOp);
 
         public static TerminalType Let = Constant("let");
         public static TerminalType Const = Constant("const");
@@ -91,6 +99,7 @@ namespace Parser.Grammars.LangGrammar
                 String,
                 Float,
                 Int,
+                
                 Colon,
                 Semicolon,
                 LParen,
@@ -105,6 +114,7 @@ namespace Parser.Grammars.LangGrammar
                 StrictEqual,
                 Equal,
                 Assign,
+                NotStrictEqual,
                 NotEqual,
                 LessOrEqual,
                 GreaterOrEqual,
@@ -113,11 +123,16 @@ namespace Parser.Grammars.LangGrammar
                 Plus,
                 Minus,
                 Asterisk,
+                DoubleSlash,
                 Slash,
+                DoubleHat,
                 Hat,
+                DoublePipe,
                 Pipe,
+                DoubleAmpersand,
                 Ampersand,
                 Tilda,
+                ExclamationMark
             };
 
             foreach (var terminal in Terminals)

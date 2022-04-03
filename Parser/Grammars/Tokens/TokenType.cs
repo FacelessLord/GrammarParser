@@ -5,6 +5,7 @@ namespace Parser.Grammars.tokens
     public abstract class TokenType
     {
         public static readonly TerminalType Eof = new EofToken();
+        public static readonly TerminalType SuperEof = new SuperEofToken();
         public static readonly TerminalType NewLine = new NewLineToken();
         public TokenType(string name)
         {

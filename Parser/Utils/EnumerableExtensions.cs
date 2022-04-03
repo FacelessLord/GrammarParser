@@ -33,5 +33,26 @@ namespace Parser
         {
             return string.Join(separator, enumerable);
         }
+
+        public static List<List<T>> Split<T>(this IEnumerable<T> enumerable, Predicate<T> splitterSelector)
+        {
+            var result = new List<List<T>>();
+            var collector = new List<T>();
+            foreach (var item in enumerable)
+            {
+                if (splitterSelector(item))
+                {
+                    result.Add(collector);
+                    result.Add(new List<T>{item});
+                    collector = new List<T>();
+                }
+                else
+                {
+                    collector.Add(item);
+                }
+            }
+            result.Add(collector);
+            return result;
+        }
     }
 }
