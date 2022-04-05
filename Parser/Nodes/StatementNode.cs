@@ -13,9 +13,4 @@ public class StatementNode : INode
     {
         Statement = (ExpressionNode) node;
     }
-
-    public ExpressionTreeNode BuildTree()
-    {
-        return ExpressionTreeNode.BuildNode(Statement.Nodes);
-    }
 }

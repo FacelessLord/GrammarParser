@@ -75,7 +75,7 @@ namespace Parser.Automaton
                 IAutomatonAction ActionSelector(TokenType curr, TokenType next)
                 {
                     var reducibleItems = stateF.Items.Where(i =>
-                        i.GetCurrentToken() == null && i.LookaheadTerminals.Contains(next)).ToList();
+                        i.GetCurrentToken() == null && i.LookaheadTerminals.Contains(curr)).ToList();
                     if (reducibleItems.Count > 1)
                     {
                         var choices = reducibleItems.Join(";");
@@ -85,19 +85,6 @@ namespace Parser.Automaton
                     if(reducibleItems.Count == 1)
                     {
                         return new ReduceAction(reducibleItems.Single().Rule);
-                    }
-
-                    var reducibleItemsWithoutLookahead = stateF.Items.Where(i =>
-                        i.GetCurrentToken() == null).ToList();
-                    if (reducibleItemsWithoutLookahead.Count > 1)
-                    {
-                        var choices = reducibleItems.Join(";");
-                        throw new Exception(
-                            $"Can't decide what reduction to apply from state {stateF}.\n Choices: [{choices}]");
-                    }
-                    if(reducibleItemsWithoutLookahead.Count == 1)
-                    {
-                        return new ReduceAction(reducibleItemsWithoutLookahead.Single().Rule);
                     }
 
                     var transitions = transitionsBySource.ContainsKey(stateF)

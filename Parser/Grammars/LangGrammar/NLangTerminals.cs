@@ -10,7 +10,7 @@ namespace Parser.Grammars.LangGrammar
         public static List<TerminalType> Terminals;
 
         private static TerminalType Constant(string name) => new ConstantTerminalType(name);
-        private static TerminalType Operation(string name, Operation operation) => new OperationTerminalType(name, operation);
+        private static TerminalType Operation(string name, Operation operation, Operation? unaryOperation=null) => new OperationTerminalType(name, operation, unaryOperation);
 
         public static TerminalType String = new StringTerminal();
         public static TerminalType Float = new FloatTerminal();
@@ -26,6 +26,8 @@ namespace Parser.Grammars.LangGrammar
         public static TerminalType RBracket = Constant("]");
         public static TerminalType Comma = Constant(",");
         public static TerminalType Dot = Constant(".");
+        public static TerminalType DoubleQuestionMark = Constant("??");
+        public static TerminalType QuestionMark = Constant("?");
         public static TerminalType Arrow = Constant("=>");
         public static TerminalType StrictEqual = Operation("===", global::Operation.StrictEqual);
         public static TerminalType Equal = Operation("==", global::Operation.Equal);
@@ -34,10 +36,14 @@ namespace Parser.Grammars.LangGrammar
         public static TerminalType NotEqual = Operation("!=", global::Operation.NotEqual);
         public static TerminalType LessOrEqual = Operation("<=", global::Operation.LessOrEqual);
         public static TerminalType GreaterOrEqual = Operation(">=", global::Operation.GreaterOrEqual);
+        public static TerminalType ShiftLeft = Operation("<<", global::Operation.ShiftLeft);
+        public static TerminalType ShiftRight = Operation(">>", global::Operation.ShiftRight);
         public static TerminalType Less = Operation("<", global::Operation.Less);
         public static TerminalType Greater = Operation(">", global::Operation.Greater);
-        public static TerminalType Plus = Operation("+", global::Operation.Plus);
-        public static TerminalType Minus = Operation("-", global::Operation.Minus);
+        public static TerminalType DoublePlus = Operation("++", global::Operation.Plus, global::Operation.UnaryPlus);
+        public static TerminalType Plus = Operation("+", global::Operation.Plus, global::Operation.UnaryPlus);
+        public static TerminalType DoubleMinus = Operation("--", global::Operation.Minus, global::Operation.UnaryMinus);
+        public static TerminalType Minus = Operation("-", global::Operation.Minus, global::Operation.UnaryMinus);
         public static TerminalType Asterisk = Operation("*", global::Operation.Multiply);
         public static TerminalType DoubleSlash = Operation("//", global::Operation.DivideInt);
         public static TerminalType Slash = Operation("/", global::Operation.Divide);
@@ -63,7 +69,10 @@ namespace Parser.Grammars.LangGrammar
         public static TerminalType Class = Constant("class");
         public static TerminalType Record = Constant("record");
         public static TerminalType Type = Constant("type");
+        public static TerminalType New = Constant("new");
 
+        public static TerminalType This = Constant("this");
+        public static TerminalType Base = Constant("base");
         public static TerminalType True = Constant("true");
         public static TerminalType False = Constant("false");
         public static TerminalType Null = Constant("null");
@@ -87,7 +96,10 @@ namespace Parser.Grammars.LangGrammar
                 Class,
                 Record,
                 Type,
+                New,
 
+                Base,
+                This,
                 True,
                 False,
                 Null,
@@ -110,6 +122,8 @@ namespace Parser.Grammars.LangGrammar
                 RBracket,
                 Comma,
                 Dot,
+                DoubleQuestionMark,
+                QuestionMark,
                 Arrow,
                 StrictEqual,
                 Equal,
@@ -118,9 +132,13 @@ namespace Parser.Grammars.LangGrammar
                 NotEqual,
                 LessOrEqual,
                 GreaterOrEqual,
+                ShiftLeft,
+                ShiftRight,
                 Less,
                 Greater,
+                DoublePlus,
                 Plus,
+                DoubleMinus,
                 Minus,
                 Asterisk,
                 DoubleSlash,

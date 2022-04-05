@@ -20,9 +20,12 @@ namespace Parser.Automaton
 
         public NodeWrapper Parse(Stack<NodeWrapper> tokenStream)
         {
+            NodeWrapper nodeWrapper = new NodeWrapper(null, null);
             while(tokenStream.Count > 0)
             {
-                var (nodeWrapper, automatonState) = _automatonStack.Peek();
+             var s = _automatonStack.Peek();
+             nodeWrapper = s.Item1;
+             var automatonState = s.Item2;
                 var currentToken = tokenStream.Pop();
                 var currentTokenNode = currentToken.Node;
                 if (currentTokenNode.Type == _info.Grammar.Axiom)
@@ -33,6 +36,22 @@ namespace Parser.Automaton
                 if (!action.ConsumesToken())
                     tokenStream.Push(currentToken);
                 action.Apply(_automatonStack, currentToken, lookaheadToken, tokenStream.Push);
+                
+                if(currentTokenNode.Type == TokenType.Eof)
+                    break;
+            }
+            try
+            {
+                var eof = new TerminalNode(TokenType.Eof, "");
+                var eofNode = new NodeWrapper(eof, nodeWrapper.TokenSpan);
+                while(true){
+                    var (_, automatonState) = _automatonStack.Peek();
+                    var action = _table[automatonState, TokenType.Eof, TokenType.Eof];
+                    action.Apply(_automatonStack, eofNode, eofNode, tokenStream.Push);
+                }
+            }
+            catch (Exception e)
+            {
             }
             return _automatonStack.Peek().Item1;
         }

@@ -14,7 +14,7 @@ namespace Parser.Grammars.LangGrammar.Terminals
         {
         }
 
-        private static Regex Id = new Regex("^([a-zA-z_]\\w*)([^\\w].*)?$",
+        private static Regex Id = new Regex("^([a-zA-Z_]\\w*)([^\\w].*)?$",
             RegexOptions.Singleline | RegexOptions.Compiled);
 
         public override Match GetMatch(string text)

@@ -6,10 +6,12 @@ namespace Parser.Grammars.tokens
     public class OperationTerminalType : ConstantTerminalType
     {
         public Operation Operation { get; }
+        public Operation UnaryOperation { get; }
         
-        public OperationTerminalType(string name, Operation operation) : base(name)
+        public OperationTerminalType(string name, Operation operation, Operation? unaryOperation=null) : base(name)
         {
             Operation = operation;
+            UnaryOperation = unaryOperation ?? operation;
         }
 
         public override Match GetMatch(string text)
@@ -24,7 +26,9 @@ namespace Parser.Grammars.tokens
 public enum Operation
 {
     PrimeOp,
+    Incerement,
     Plus,
+    Decrement,
     Minus,
     Multiply,
     Divide,
@@ -46,6 +50,8 @@ public enum Operation
     NotStrictEqual,
     LessOrEqual,
     GreaterOrEqual,
+    ShiftLeft,
+    ShiftRight,
     Less,
     Greater,
     

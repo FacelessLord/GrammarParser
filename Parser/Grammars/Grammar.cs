@@ -53,7 +53,7 @@ namespace Parser.Grammars
             }
             follow[Axiom] = new HashSet<TerminalType>() { TokenType.Eof };
 
-            for (var j = 0; j < 2; j++)
+            for (var j = 0; j < nonTerminals.Count; j++)
                 foreach (GrammarRule rule in nonTerminals.Select(nonTerminal => Rules[nonTerminal])
                     .SelectMany(rules => rules))
                 {
