@@ -35,74 +35,63 @@ namespace ParserTests
             Automaton = builder.Build(NLangGrammar.Grammar);
         }
 
-        [TestCase("let x", "x", VariableModifiers.Let)]
-        [TestCase("const x", "x", VariableModifiers.Const)]
-        [TestCase("compile x", "x", VariableModifiers.Compile)]
-        public void ParsesCreateVarRule(string input, string varName, VariableModifiers modifiers)
+        [TestCase("{int x;}", "x", "int")]
+        [TestCase("{string VerylongUpperCamelCaseName;}", "VerylongUpperCamelCaseName", "string")]
+        [TestCase("{bool very_long_lower_camel_case_name;}", "very_long_lower_camel_case_name", "bool")]
+        public void ParsesVariableDeclaration(string input, string varName, string typeMatch)
         {
+            var expect = Wrap(NLangRules.Statements.Block,
+                new StatementListNode(
+                    Wrap(NLangRules.Statements.Statement,
+                        Wrap(NLangRules.Statements.DeclarationStatement,
+                            new LocalVariableDeclarationNode(
+                                Wrap(NLangRules.Variables.LocalVariableType, 
+                                    new TypeNode(Id(typeMatch))),
+                                new LocalVariableDeclaratorListNode(
+                                    new LocalVariableDeclaratorNode(Id(varName))))
+                        ))));
+
             var node = Parse(input).Node;
-            node.Should().BeOfType<StatementNode>();
-            var createVarExpressionNode = (ExpressionTreeLeafNode) ((StatementNode)node).BuildTree();
-            var createVarNode = (CreateVarNode) createVarExpressionNode.Leaf;
-            createVarNode.Type.Should().Be(NLangRules.CreateVar);
-            createVarNode.Names.Count.Should().Be(1);
-            createVarNode.Names[0].Should().Be(varName);
-            createVarNode.Modifiers.Should().Be(modifiers);
-        }
-
-        [Test]
-        public void ParsesPlusAndMinusParenatedExpression()
-        {
-            var node = Parse("x + y + z - (a + y);").Node;
-            node.Should().BeOfType<StatementNode>();
-            var tree = ExpressionTreeNode.BuildNode(((StatementNode) node).Statement.Nodes);
-            tree.Operation.Should().Be(Operation.Minus);
-            var left = tree.Args[0];
-            left.Operation.Should().Be(Operation.Plus);
-            var leftLeft = left.Args[0];
-            leftLeft.Operation.Should().Be(Operation.Plus);
-            
-            var leftLeftLeft = (ExpressionTreeLeafNode)leftLeft.Args[0];
-            var x = (TerminalNode) leftLeftLeft.Leaf;
-            x.Type.Should().Be(NLangTerminals.Id);
-            x.Match.Should().Be("x");
-
-            var leftLeftRight = (ExpressionTreeLeafNode) leftLeft.Args[1];
-            var y = (TerminalNode) leftLeftRight.Leaf;
-            y.Type.Should().Be(NLangTerminals.Id);
-            y.Match.Should().Be("y");
-
-            var leftRight = (ExpressionTreeLeafNode) left.Args[1];
-            var z = (TerminalNode) leftRight.Leaf;
-            z.Type.Should().Be(NLangTerminals.Id);
-            z.Match.Should().Be("z");
-
-            var right = tree.Args[1];
-            right.Operation.Should().Be(Operation.Plus);
-            
-            var rightLeft = (ExpressionTreeLeafNode) right.Args[0];
-            var a = (TerminalNode)rightLeft.Leaf;
-            a.Type.Should().Be(NLangTerminals.Id);
-            a.Match.Should().Be("a");
-            
-            var rightRight = (ExpressionTreeLeafNode) right.Args[1];
-            var y2 = (TerminalNode)rightRight.Leaf;
-            y2.Type.Should().Be(NLangTerminals.Id);
-            y2.Match.Should().Be("y");
+            node.Should().Be(expect);
         }
         
-        // [TestCase("const a;", new[] { "a" })]
-        // [TestCase("const a, b;", new[] { "a", "b" })]
-        // [TestCase("const a, b, c, d , e,f,g ,h;", new[] { "a", "b", "c", "d", "e", "f", "g", "h" })]
-        // public void ParsesIdList(string input, string[] result)
-        // {
-        //     var node = Parse(input).Node;
-        //     node.Should().BeOfType<StatementNode>();
-        //     var tree = ExpressionTreeNode.BuildNode(((StatementNode) node).Statement.Nodes);
-        //     var leaf = (ExpressionTreeLeafNode) tree;
-        //     var createVarNode = (CreateVarNode) leaf.Leaf;
-        //     var ids = createVarNode.Names;
-        //     ids.Should().BeEquivalentTo(result);
-        // }
+        [TestCase("{var x;}", "x", "var")]
+        public void ParsesVariableDeclarationWithTypeInfer(string input, string varName, string typeMatch)
+        {
+            var expect = Wrap(NLangRules.Statements.Block,
+                new StatementListNode(
+                    Wrap(NLangRules.Statements.Statement,
+                        Wrap(NLangRules.Statements.DeclarationStatement,
+                            new LocalVariableDeclarationNode(
+                                Wrap(NLangRules.Variables.LocalVariableType, Term(NLangTerminals.Var, typeMatch)),
+                                new LocalVariableDeclaratorListNode(
+                                    new LocalVariableDeclaratorNode(Id(varName))))
+                        ))));
+
+            var node = Parse(input).Node;
+            node.Should().Be(expect);
+        }
+        
+        
+        public static TerminalNode Id(string name)
+        {
+            return new TerminalNode(NLangTerminals.Id, name);
+        }
+        public static TerminalNode Int(string name)
+        {
+            return new TerminalNode(NLangTerminals.Int, name);
+        }
+        public static TerminalNode Term(TokenType type, string value)
+        {
+            return new TerminalNode(type, value);
+        }
+        public static WrapperNode Wrap(TokenType type, INode node)
+        {
+            return new WrapperNode(type, node);
+        }
+    }
+
+    public static class NodeExtensions
+    {
     }
 }

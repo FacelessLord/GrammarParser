@@ -57,14 +57,21 @@ namespace Parser.Grammars.LangGrammar
         public static TerminalType ExclamationMark = Operation("!", global::Operation.Not);
         public static TerminalType PrimeOp = Operation("", global::Operation.PrimeOp);
 
-        public static TerminalType Let = Constant("let");
+        public static TerminalType Var = Constant("var");
         public static TerminalType Const = Constant("const");
-        public static TerminalType Compile = Constant("compile");
         public static TerminalType As = Constant("as");
         public static TerminalType Is = Constant("is");
+        public static TerminalType In = Constant("in");
         public static TerminalType If = Constant("if");
         public static TerminalType Else = Constant("else");
+        public static TerminalType Foreach = Constant("foreach");
         public static TerminalType For = Constant("for");
+        public static TerminalType Break = Constant("break");
+        public static TerminalType Continue = Constant("continue");
+        public static TerminalType Throw = Constant("throw");
+        public static TerminalType Goto = Constant("goto");
+        public static TerminalType Return = Constant("return");
+        public static TerminalType While = Constant("while");
         public static TerminalType Function = Constant("function");
         public static TerminalType Class = Constant("class");
         public static TerminalType Record = Constant("record");
@@ -84,14 +91,20 @@ namespace Parser.Grammars.LangGrammar
         {
             Terminals = new List<TerminalType>()
             {
-                Let,
+                Var,
                 Const,
-                Compile,
                 As,
                 Is,
                 If,
                 Else,
+                Foreach,
                 For,
+                Break,
+                Continue,
+                Throw,
+                Goto,
+                Return,
+                While,
                 Function,
                 Class,
                 Record,
@@ -111,6 +124,7 @@ namespace Parser.Grammars.LangGrammar
                 String,
                 Float,
                 Int,
+                In,
                 
                 Colon,
                 Semicolon,

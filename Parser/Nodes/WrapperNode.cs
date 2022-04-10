@@ -12,4 +12,23 @@ public class WrapperNode : INode
         Type = type;
         Node = node;
     }
+
+    protected bool Equals(WrapperNode other)
+    {
+        return Type.Equals(other.Type) && Node.Equals(other.Node);
+    }
+    public override bool Equals(object? obj)
+    {
+        if (ReferenceEquals(null, obj))
+            return false;
+        if (ReferenceEquals(this, obj))
+            return true;
+        if (obj.GetType() != this.GetType())
+            return false;
+        return Equals((WrapperNode) obj);
+    }
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Type, Node);
+    }
 }

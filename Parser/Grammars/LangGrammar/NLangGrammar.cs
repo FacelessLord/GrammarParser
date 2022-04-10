@@ -28,7 +28,7 @@ namespace Parser.Grammars.LangGrammar
                 .Cast<NonTerminalType>()
                 .ToHashSet();
 
-            Grammar = new Grammar(NLangRules.Statement, terminals,
+            Grammar = new Grammar(NLangRules.Statements.Block, terminals,
                 nonTerminals, rules);
         }
     }

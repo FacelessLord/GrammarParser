@@ -79,7 +79,7 @@ namespace Parser.Automaton
                     if (reducibleItems.Count > 1)
                     {
                         var choices = reducibleItems.Join(";");
-                        throw new Exception(
+                        throw new ParserAutomatonException(
                             $"Can't decide what reduction to apply from state {stateF}.\n Choices: [{choices}]");
                     }
                     if(reducibleItems.Count == 1)
@@ -96,14 +96,14 @@ namespace Parser.Automaton
                     if (transitionsForToken.Count > 1)
                     {
                         var choices = transitionsForToken.Join(", ");
-                        throw new Exception(
+                        throw new ParserAutomatonException(
                             $"Can't decide what transition to take from state {stateF}.\n Choices: [{choices}]");
                     }
                     if (transitionsForToken.Count == 1)
                     {
                         return transitionsForToken.Single().Action;
                     }
-                    throw new Exception(
+                    throw new ParserAutomatonException(
                         $"Can't find any transition or reducings to apply from state {stateF} by {curr}|-{next}");
                 }
 

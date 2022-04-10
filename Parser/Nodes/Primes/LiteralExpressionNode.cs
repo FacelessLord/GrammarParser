@@ -5,6 +5,6 @@ namespace Parser.Nodes.Primes;
 
 public abstract class LiteralExpressionNode : INode
 {
-    public TokenType Type { get; } = NLangRules.LiteralExpression;
+    public TokenType Type { get; } = NLangRules.Expressions.LiteralExpression;
 
 }
