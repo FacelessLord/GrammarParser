@@ -1,6 +1,6 @@
 ﻿using Parser.Nodes;
 
-namespace Parser.Grammars.tokens
+namespace Parser.Grammars.Tokens
 {
     public class TerminalNode : INode
     {

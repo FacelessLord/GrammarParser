@@ -1,7 +1,7 @@
 ﻿using Parser.Grammars.LangGrammar;
-using Parser.Grammars.tokens;
+using Parser.Grammars.Tokens;
 
-namespace Parser.Nodes;
+namespace Parser.Nodes.Variables;
 
 public class LocalConstantDeclarationNode : INode
 {

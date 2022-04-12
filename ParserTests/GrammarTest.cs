@@ -3,7 +3,7 @@ using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 using Parser.Grammars;
-using Parser.Grammars.tokens;
+using Parser.Grammars.Tokens;
 
 namespace ParserTests
 {

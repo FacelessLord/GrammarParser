@@ -1,25 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Parser.Grammars.tokens
-{
-    public class OperationTerminalType : ConstantTerminalType
-    {
-        public Operation Operation { get; }
-        public Operation UnaryOperation { get; }
-        
-        public OperationTerminalType(string name, Operation operation, Operation? unaryOperation=null) : base(name)
-        {
-            Operation = operation;
-            UnaryOperation = unaryOperation ?? operation;
-        }
+namespace Parser.Grammars.Tokens;
 
-        public override Match GetMatch(string text)
-        {
-            var foundText = text.StartsWith(Name);
-            var value = foundText ? Name : "";
-            return new Match(foundText, value.Length, value);
-        }
+public class OperationTerminalType : ConstantTerminalType
+{
+    public Operation Operation { get; }
+    public Operation UnaryOperation { get; }
+        
+    public OperationTerminalType(string name, Operation operation, Operation? unaryOperation=null) : base(name)
+    {
+        Operation = operation;
+        UnaryOperation = unaryOperation ?? operation;
+    }
+
+    public override Match GetMatch(string text)
+    {
+        var foundText = text.StartsWith(Name);
+        var value = foundText ? Name : "";
+        return new Match(foundText, value.Length, value);
     }
 }
 

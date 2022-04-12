@@ -7,7 +7,7 @@ using Parser;
 using Parser.Exceptions;
 using Parser.Grammars.LangGrammar.Terminals;
 using Parser.Grammars.Paths;
-using Parser.Grammars.tokens;
+using Parser.Grammars.Tokens;
 
 namespace ParserTests
 {

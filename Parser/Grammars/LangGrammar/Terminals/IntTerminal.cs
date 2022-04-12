@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-using Parser.Grammars.tokens;
-using Match = Parser.Grammars.tokens.Match;
+using Parser.Grammars.Tokens;
+using Match = Parser.Grammars.Tokens.Match;
 
 namespace Parser.Grammars.LangGrammar.Terminals
 {

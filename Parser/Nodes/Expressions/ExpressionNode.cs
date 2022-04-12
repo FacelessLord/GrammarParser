@@ -1,6 +1,6 @@
-﻿using Parser.Grammars.tokens;
+﻿using Parser.Grammars.Tokens;
 
-namespace Parser.Nodes;
+namespace Parser.Nodes.Expressions;
 
 public abstract class ExpressionNode : INode
 {

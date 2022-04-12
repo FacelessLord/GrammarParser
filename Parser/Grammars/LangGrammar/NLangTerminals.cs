@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Parser.Grammars.LangGrammar.Terminals;
-using Parser.Grammars.tokens;
+using Parser.Grammars.Tokens;
 
 namespace Parser.Grammars.LangGrammar
 {
@@ -29,33 +29,33 @@ namespace Parser.Grammars.LangGrammar
         public static TerminalType DoubleQuestionMark = Constant("??");
         public static TerminalType QuestionMark = Constant("?");
         public static TerminalType Arrow = Constant("=>");
-        public static TerminalType StrictEqual = Operation("===", global::Operation.StrictEqual);
-        public static TerminalType Equal = Operation("==", global::Operation.Equal);
-        public static TerminalType Assign = Operation("=", global::Operation.Assign);
-        public static TerminalType NotStrictEqual = Operation("!==", global::Operation.NotStrictEqual);
-        public static TerminalType NotEqual = Operation("!=", global::Operation.NotEqual);
-        public static TerminalType LessOrEqual = Operation("<=", global::Operation.LessOrEqual);
-        public static TerminalType GreaterOrEqual = Operation(">=", global::Operation.GreaterOrEqual);
-        public static TerminalType ShiftLeft = Operation("<<", global::Operation.ShiftLeft);
-        public static TerminalType ShiftRight = Operation(">>", global::Operation.ShiftRight);
-        public static TerminalType Less = Operation("<", global::Operation.Less);
-        public static TerminalType Greater = Operation(">", global::Operation.Greater);
-        public static TerminalType DoublePlus = Operation("++", global::Operation.Plus, global::Operation.UnaryPlus);
-        public static TerminalType Plus = Operation("+", global::Operation.Plus, global::Operation.UnaryPlus);
-        public static TerminalType DoubleMinus = Operation("--", global::Operation.Minus, global::Operation.UnaryMinus);
-        public static TerminalType Minus = Operation("-", global::Operation.Minus, global::Operation.UnaryMinus);
-        public static TerminalType Asterisk = Operation("*", global::Operation.Multiply);
-        public static TerminalType DoubleSlash = Operation("//", global::Operation.DivideInt);
-        public static TerminalType Slash = Operation("/", global::Operation.Divide);
-        public static TerminalType Hat = Operation("^", global::Operation.BitwiseXor);
-        public static TerminalType DoubleHat = Operation("^^", global::Operation.Xor);
-        public static TerminalType Pipe = Operation("|", global::Operation.BitwiseOr);
-        public static TerminalType DoublePipe = Operation("||", global::Operation.Or);
-        public static TerminalType Ampersand = Operation("&", global::Operation.BitwiseAnd);
-        public static TerminalType DoubleAmpersand = Operation("&&", global::Operation.And);
-        public static TerminalType Tilda = Operation("~", global::Operation.BitwiseNot);
-        public static TerminalType ExclamationMark = Operation("!", global::Operation.Not);
-        public static TerminalType PrimeOp = Operation("", global::Operation.PrimeOp);
+        public static TerminalType StrictEqual = Operation("===", global::Parser.Grammars.Tokens.Operation.StrictEqual);
+        public static TerminalType Equal = Operation("==", global::Parser.Grammars.Tokens.Operation.Equal);
+        public static TerminalType Assign = Operation("=", global::Parser.Grammars.Tokens.Operation.Assign);
+        public static TerminalType NotStrictEqual = Operation("!==", global::Parser.Grammars.Tokens.Operation.NotStrictEqual);
+        public static TerminalType NotEqual = Operation("!=", global::Parser.Grammars.Tokens.Operation.NotEqual);
+        public static TerminalType LessOrEqual = Operation("<=", global::Parser.Grammars.Tokens.Operation.LessOrEqual);
+        public static TerminalType GreaterOrEqual = Operation(">=", global::Parser.Grammars.Tokens.Operation.GreaterOrEqual);
+        public static TerminalType ShiftLeft = Operation("<<", global::Parser.Grammars.Tokens.Operation.ShiftLeft);
+        public static TerminalType ShiftRight = Operation(">>", global::Parser.Grammars.Tokens.Operation.ShiftRight);
+        public static TerminalType Less = Operation("<", global::Parser.Grammars.Tokens.Operation.Less);
+        public static TerminalType Greater = Operation(">", global::Parser.Grammars.Tokens.Operation.Greater);
+        public static TerminalType DoublePlus = Operation("++", global::Parser.Grammars.Tokens.Operation.Plus, global::Parser.Grammars.Tokens.Operation.UnaryPlus);
+        public static TerminalType Plus = Operation("+", global::Parser.Grammars.Tokens.Operation.Plus, global::Parser.Grammars.Tokens.Operation.UnaryPlus);
+        public static TerminalType DoubleMinus = Operation("--", global::Parser.Grammars.Tokens.Operation.Minus, global::Parser.Grammars.Tokens.Operation.UnaryMinus);
+        public static TerminalType Minus = Operation("-", global::Parser.Grammars.Tokens.Operation.Minus, global::Parser.Grammars.Tokens.Operation.UnaryMinus);
+        public static TerminalType Asterisk = Operation("*", global::Parser.Grammars.Tokens.Operation.Multiply);
+        public static TerminalType DoubleSlash = Operation("//", global::Parser.Grammars.Tokens.Operation.DivideInt);
+        public static TerminalType Slash = Operation("/", global::Parser.Grammars.Tokens.Operation.Divide);
+        public static TerminalType Hat = Operation("^", global::Parser.Grammars.Tokens.Operation.BitwiseXor);
+        public static TerminalType DoubleHat = Operation("^^", global::Parser.Grammars.Tokens.Operation.Xor);
+        public static TerminalType Pipe = Operation("|", global::Parser.Grammars.Tokens.Operation.BitwiseOr);
+        public static TerminalType DoublePipe = Operation("||", global::Parser.Grammars.Tokens.Operation.Or);
+        public static TerminalType Ampersand = Operation("&", global::Parser.Grammars.Tokens.Operation.BitwiseAnd);
+        public static TerminalType DoubleAmpersand = Operation("&&", global::Parser.Grammars.Tokens.Operation.And);
+        public static TerminalType Tilda = Operation("~", global::Parser.Grammars.Tokens.Operation.BitwiseNot);
+        public static TerminalType ExclamationMark = Operation("!", global::Parser.Grammars.Tokens.Operation.Not);
+        public static TerminalType PrimeOp = Operation("", global::Parser.Grammars.Tokens.Operation.PrimeOp);
 
         public static TerminalType Var = Constant("var");
         public static TerminalType Const = Constant("const");

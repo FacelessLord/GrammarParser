@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Parser.Grammars.tokens;
+using Parser.Grammars.Tokens;
 using Parser.Nodes;
+using Parser.Nodes.Expressions;
 using Parser.Nodes.Primes;
 using Parser.Nodes.Statements;
+using Parser.Nodes.Variables;
 using Parser.Rules;
+using Parser.Utils;
 using static Parser.Grammars.LangGrammar.NLangTerminals;
 
 namespace Parser.Grammars.LangGrammar

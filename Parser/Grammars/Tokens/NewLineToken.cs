@@ -1,4 +1,4 @@
-﻿namespace Parser.Grammars.tokens
+﻿namespace Parser.Grammars.Tokens
 {
     public class NewLineToken : TerminalType
     {

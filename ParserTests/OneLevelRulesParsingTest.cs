@@ -7,8 +7,10 @@ using Parser.Automaton;
 using Parser.Grammars;
 using Parser.Grammars.LangGrammar;
 using Parser.Grammars.Paths;
-using Parser.Grammars.tokens;
+using Parser.Grammars.Tokens;
 using Parser.Nodes;
+using Parser.Nodes.Statements;
+using Parser.Nodes.Variables;
 
 namespace ParserTests
 {

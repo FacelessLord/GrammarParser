@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Parser.Grammars.Paths;
-using Parser.Grammars.tokens;
+using Parser.Grammars.Tokens;
 using Parser.Nodes;
 using Parser.Utils;
 

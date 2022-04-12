@@ -1,7 +1,8 @@
 ﻿using Parser.Grammars.LangGrammar;
-using Parser.Grammars.tokens;
+using Parser.Grammars.Tokens;
+using Parser.Nodes.Variables;
 
-namespace Parser.Nodes;
+namespace Parser.Nodes.Expressions;
 
 public class ObjectCreationExpressionNode : INode
 {

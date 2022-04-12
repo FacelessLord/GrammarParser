@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Parser.Grammars.tokens;
+using Parser.Grammars.Tokens;
 using Parser.Rules;
 
 namespace Parser.Grammars.LangGrammar

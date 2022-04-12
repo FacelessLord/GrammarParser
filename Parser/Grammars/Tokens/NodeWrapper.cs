@@ -1,7 +1,7 @@
 ﻿using Parser.Grammars.Paths;
 using Parser.Nodes;
 
-namespace Parser.Grammars.tokens
+namespace Parser.Grammars.Tokens
 {
     public class NodeWrapper
     {

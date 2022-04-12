@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Parser.Grammars.tokens;
+using Parser.Grammars.Tokens;
 
 namespace Parser.Grammars
 {

@@ -1,4 +1,4 @@
-﻿using Parser.Grammars.tokens;
+﻿using Parser.Grammars.Tokens;
 
 namespace Parser.Nodes.Primes;
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Parser.Grammars;
+using Parser.Utils;
 
 namespace Parser.Automaton
 {

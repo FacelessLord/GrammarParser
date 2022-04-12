@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Parser
+﻿namespace Parser.Utils
 {
     public static class EnumerableExtensions
     {

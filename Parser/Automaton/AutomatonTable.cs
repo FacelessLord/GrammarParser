@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Parser.Grammars.tokens;
+using Parser.Grammars.Tokens;
 
 namespace Parser.Automaton
 {

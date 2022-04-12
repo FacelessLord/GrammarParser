@@ -1,6 +1,4 @@
-﻿using Parser.Grammars.Paths;
-
-namespace Parser.Grammars.tokens
+﻿namespace Parser.Grammars.Tokens
 {
     public abstract class TokenType
     {

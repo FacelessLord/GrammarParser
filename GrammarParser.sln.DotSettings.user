@@ -1,0 +1,12 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ba3a0691_002De2b1_002D417b_002Db016_002D9c0df4474201/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ParsesCreateVarRule" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::79D1AC04-56C9-4B6F-8E7D-6B7C1F490256::net6.0::ParserTests.OneLevelRulesParsingTest.ParsesVariableDeclaration&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::79D1AC04-56C9-4B6F-8E7D-6B7C1F490256::net6.0::ParserTests.OneLevelRulesParsingTest.ParsesVariableDeclarationWithTypeInfer&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Transpilation/@EntryIndexedValue">True</s:Boolean>
+	
+	
+	</wpf:ResourceDictionary>

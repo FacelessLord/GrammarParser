@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Parser.Grammars;
 using Parser.Grammars.Paths;
-using Parser.Grammars.tokens;
+using Parser.Grammars.Tokens;
 
 namespace Parser.Automaton
 {
