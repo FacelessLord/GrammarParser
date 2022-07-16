@@ -30,11 +30,11 @@ public class Transpiler
     {
         var resultBuilder = new StringBuilder();
 
-        var constants = GetConstants(statements);
+        // var constants = GetConstants(statements);
         
         //todo get constants -> create constant values dicts
         //when constant declaration occurs - just skip it
         //when constant usage occurs - take it's value from dict and place ir instead of constant usage
-        
+        return null;
     }
 }

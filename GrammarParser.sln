@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserTests", "ParserTests\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transpiler", "Transpiler\Transpiler.csproj", "{C8B04D49-EC60-4C91-8E14-72A14A576C3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualMachine", "VirtualMachine\VirtualMachine.csproj", "{3808F4F9-943B-43DF-9664-80296F7DB93A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualMachineTests", "VirtualMachineTests\VirtualMachineTests.csproj", "{B7922FCD-3AA7-4F9D-947A-4EB7222522ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{C8B04D49-EC60-4C91-8E14-72A14A576C3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8B04D49-EC60-4C91-8E14-72A14A576C3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8B04D49-EC60-4C91-8E14-72A14A576C3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3808F4F9-943B-43DF-9664-80296F7DB93A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3808F4F9-943B-43DF-9664-80296F7DB93A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3808F4F9-943B-43DF-9664-80296F7DB93A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3808F4F9-943B-43DF-9664-80296F7DB93A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7922FCD-3AA7-4F9D-947A-4EB7222522ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7922FCD-3AA7-4F9D-947A-4EB7222522ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7922FCD-3AA7-4F9D-947A-4EB7222522ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7922FCD-3AA7-4F9D-947A-4EB7222522ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

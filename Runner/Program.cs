@@ -1,4 +1,5 @@
-﻿
+﻿using VirtualMachine.Memory;
+
 namespace Runner
 {
     public static class Runner
